@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 
-// clean test -Dtest=HWCase1#appliancesTest -Dbrowser=chrome -Dparams=--start-maximized -DpageLoadStrategy=EAGER
+// clean test -Dtest=HWCase1Test#appliancesTest -Dbrowser=chrome -Dparams=--start-maximized -DpageLoadStrategy=EAGER
 public class HWCase1Test {
     protected static WebDriver driver;
     private Logger logger = LogManager.getLogger(HWCase1Test.class);

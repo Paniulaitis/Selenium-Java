@@ -13,9 +13,9 @@ import java.time.Duration;
 import java.util.List;
 
 // clean test -Dtest=HWCase2#appliancesTest -Dbrowser=chrome -Dparams=--start-maximized -DpageLoadStrategy=EAGER
-public class HWCase2 {
+public class HWCase2Test {
     protected static WebDriver driver;
-    private Logger logger = LogManager.getLogger(HWCase2.class);
+    private Logger logger = LogManager.getLogger(HWCase2Test.class);
 
 
     // Чтение передаваемого параметра browser (-Dbrowser)
@@ -27,6 +27,7 @@ public class HWCase2 {
     public void setUp() {
         logger.info("env = " + browser);
         driver = WebDriverFactory.getDriver(browser.toLowerCase(), params.toLowerCase(), pageLoadStrategy.toUpperCase());
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
         logger.info("Драйвер стартовал!");
     }
 
@@ -63,7 +64,7 @@ public class HWCase2 {
             logger.info("WebElement: " + element.getTagName() + " = " + element.getText());
             appliancesCategoriesText+=element.getText();
         }
-        Assertions.assertTrue(appliancesCategoriesText.equals("Техника для кухниТехника для домаКрасота и здоровье"));
+        Assertions.assertEquals("Техника для кухниТехника для домаКрасота и здоровье", appliancesCategoriesText,  "Подкатегории первого уровня бытовой техники ошибочны");
         logger.info("Подкатегории первого уровня бытовой техники в норме");
 
 

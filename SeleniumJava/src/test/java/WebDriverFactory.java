@@ -35,14 +35,8 @@ public class WebDriverFactory {
                     firefoxOptions.addArguments("--kiosk");
                 }
 
-                switch (pageLoadStrategy) {
-                    case "NONE":
-                        firefoxOptions.setPageLoadStrategy(PageLoadStrategy.NONE);
-                    case "EAGER":
-                        firefoxOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
-                    default:
-                        firefoxOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-                }
+                firefoxOptions.setPageLoadStrategy(PageLoadStrategy.valueOf(pageLoadStrategy.toUpperCase()));
+
                 return new FirefoxDriver(firefoxOptions);
 
             default:
@@ -59,18 +53,11 @@ public class WebDriverFactory {
                     chromeOptions.addArguments(params);
                 }
                 else {
-                    chromeOptions.addArguments("--start-maximized");
+                    chromeOptions.addArguments("--start-fullscreen");
                     chromeOptions.addArguments("--incognito");
                 }
 
-                switch (pageLoadStrategy) {
-                    case "NONE":
-                        chromeOptions.setPageLoadStrategy(PageLoadStrategy.NONE);
-                    case "EAGER":
-                        chromeOptions.setPageLoadStrategy(PageLoadStrategy.EAGER);
-                    default:
-                        chromeOptions.setPageLoadStrategy(PageLoadStrategy.NORMAL);
-                }
+                chromeOptions.setPageLoadStrategy(PageLoadStrategy.valueOf(pageLoadStrategy.toUpperCase()));
 
                 return new ChromeDriver(chromeOptions);
         }

@@ -12,9 +12,9 @@ import java.time.Duration;
 import java.util.List;
 
 // clean test -Dtest=HWCase1#appliancesTest -Dbrowser=chrome -Dparams=--start-maximized -DpageLoadStrategy=EAGER
-public class HWCase1 {
+public class HWCase1Test {
     protected static WebDriver driver;
-    private Logger logger = LogManager.getLogger(HWCase1.class);
+    private Logger logger = LogManager.getLogger(HWCase1Test.class);
 
 
     // Чтение передаваемого параметра browser (-Dbrowser)
@@ -26,6 +26,7 @@ public class HWCase1 {
     public void setUp() {
         logger.info("env = " + browser);
         driver = WebDriverFactory.getDriver(browser.toLowerCase(), params.toLowerCase(), pageLoadStrategy.toUpperCase());
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
         logger.info("Драйвер стартовал!");
     }
 
@@ -76,9 +77,8 @@ public class HWCase1 {
 
         By appliancesTextXpath = By.xpath("//h1[@class='subcategory__page-title']");
         WebElement appliancesText = driver.findElement(appliancesTextXpath);
-        String text = appliancesText.getText();
-        logger.info("Надпись на странице техники: " + text);
-        Assertions.assertTrue(text.equals("Бытовая техника"));
+        logger.info("Надпись на странице техники: " + appliancesText.getText());
+        Assertions.assertEquals("Бытовая техника", appliancesText.getText(),  "Текст Бытовая техника не отображается");
 
         By kitchenAppliancesXpath = By.xpath("//span[contains(text(),'Техника для кухни')]");
         wait.until(ExpectedConditions.visibilityOfElementLocated(kitchenAppliancesXpath));
@@ -88,9 +88,8 @@ public class HWCase1 {
 
         By kitchenAppliancesTextXpath = By.xpath("//h1[@class='subcategory__page-title']");
         WebElement kitchenAppliancesText = driver.findElement(kitchenAppliancesTextXpath);
-        text = kitchenAppliancesText.getText();
-        logger.info("Надпись на странице кухни: " + text);
-        Assertions.assertTrue(text.equals("Техника для кухни"));
+        logger.info("Надпись на странице кухни: " + kitchenAppliancesText.getText());
+        Assertions.assertEquals("Техника для кухни", appliancesText.getText(),  "Текст Техника для кухни не отображается");
 
         By assembleYourKitchenXpath = By.xpath("//a[@class='button-ui button-ui_white configurator-links-block__links-link']");
         WebElement assembleYourKitchenText = driver.findElement(assembleYourKitchenXpath);

@@ -28,10 +28,10 @@ public class Listener implements WebDriverListener {
     @Override
     public void afterFindElement(WebDriver driver, By locator, WebElement result) {
         GregorianCalendar gCalendar = new GregorianCalendar();
-        pathName = "temp\\" + months[gCalendar.get(Calendar.MONTH)]+ " " + gCalendar.get(Calendar.DATE) + " " + gCalendar.get(Calendar.YEAR) + " " +
+        pathName = "temp\\" + months[gCalendar.get(Calendar.MONTH)]+ " " + gCalendar.get(Calendar.DATE) + " " +
                 gCalendar.get(Calendar.HOUR) + "-" + gCalendar.get(Calendar.MINUTE) + "-" + gCalendar.get(Calendar.SECOND) + ".png";
-        logger.info("Найден веб элемент");
-/*
+        logger.info("Найден веб элемент " + locator);
+
         try {
             Screenshot screenshot = new AShot()
                     .shootingStrategy(ShootingStrategies.viewportPasting(100))
@@ -43,19 +43,17 @@ public class Listener implements WebDriverListener {
         }
 
         new Actions(driver)
-                .scrollToElement(result)
+                .moveToElement(result)
                 .perform();
-
- */
     }
 
     @Override
     public void afterFindElements(WebDriver driver, By locator, List<WebElement> result) {
         GregorianCalendar gCalendar = new GregorianCalendar();
-        pathName = "temp\\" + months[gCalendar.get(Calendar.MONTH)]+ " " + gCalendar.get(Calendar.DATE) + " " + gCalendar.get(Calendar.YEAR) + " " +
+        pathName = "temp\\" + months[gCalendar.get(Calendar.MONTH)] + " " + gCalendar.get(Calendar.YEAR) + " " +
                 gCalendar.get(Calendar.HOUR) + "-" + gCalendar.get(Calendar.MINUTE) + "-" + gCalendar.get(Calendar.SECOND) + ".png";
-        logger.info("Найдены веб элементы");
-/*
+        logger.info("Найдены веб элементы " + locator);
+
         try {
             Screenshot screenshot = new AShot()
                     .shootingStrategy(ShootingStrategies.viewportPasting(100))
@@ -65,12 +63,11 @@ public class Listener implements WebDriverListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
- */
     }
 
     @Override
     public void afterGetText(WebElement element, String result){
-        logger.info("Получен текст");
+        logger.info("Получен текст" + result);
     }
 
 

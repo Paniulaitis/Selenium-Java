@@ -47,11 +47,10 @@ public class HWCase3Test {
         eventFiringWebDriver.get("https://www.dns-shop.ru/");
         logger.info("Открыта страница dns-shop.ru - https://www.dns-shop.ru/");
 
-        WebDriverWait wait = new WebDriverWait(eventFiringWebDriver, Duration.ofSeconds(15));
-
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 
         By pCXpath = By.xpath("//div[@class='menu-desktop']//a[contains(text(),'ПК, ноутбуки, периферия')]");
-        wait.until(ExpectedConditions.presenceOfElementLocated(pCXpath));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(pCXpath));
         WebElement pCButton = eventFiringWebDriver.findElement(pCXpath);
         new Actions(eventFiringWebDriver)
                 .moveToElement(pCButton)
@@ -62,9 +61,12 @@ public class HWCase3Test {
         By notebooksXpath = By.xpath("//div[@class='menu-desktop__second-level-wrap']//a[contains(text(),'Ноутбуки')]");
         wait.until(ExpectedConditions.visibilityOfElementLocated(notebooksXpath));
         WebElement notebooksButton = eventFiringWebDriver.findElement(notebooksXpath);
+        new Actions(eventFiringWebDriver)
+                .moveToElement(pCButton)
+                .perform();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(notebooksXpath));
         notebooksButton.click();
         logger.info("Нажата кнопка Ноутбуки");
-
 
 
         By headerXpath = By.xpath("//header");
@@ -123,8 +125,8 @@ public class HWCase3Test {
 
         By productNameXpath = By.xpath("//div[@class='catalog-products view-simple']//div[1]//span[1]");
         wait.until(ExpectedConditions.visibilityOfElementLocated(productNameXpath));
-        WebElement productName = eventFiringWebDriver.findElement(productNameXpath);
-        String productNameText = productName.getText();
+        new WebDriverWait(driver, Duration.ofSeconds(10)).ignoring(StaleElementReferenceException.class).until(ExpectedConditions.elementToBeClickable(productNameXpath));
+        String productNameText = driver.findElement(productNameXpath).getText();
 
         By productXpath = By.xpath("//div[@class='catalog-products view-simple']//div[1]");
         wait.until(ExpectedConditions.visibilityOfElementLocated(productXpath));

@@ -52,7 +52,6 @@ public class HWCase2Test {
             e.printStackTrace();
         }
 
-        //driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         By cityXpath = By.xpath("//span[contains(text(),'Всё верно')]");
         wait.until(ExpectedConditions.elementToBeClickable(cityXpath));
